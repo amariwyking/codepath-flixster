@@ -14,10 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public static final String TAG = "MovieAdapter";
@@ -67,6 +71,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            ivPoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            ivPoster.setAdjustViewBounds(true);
         }
 
         public void bind(Movie movie) {
@@ -83,7 +89,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 imageUrl = movie.getPosterPath();
             }
 
-            Glide.with(context).load(imageUrl).into(ivPoster);
+            int radius = 20; // corner radius, higher value = more rounded
+            int margin = 10; // crop margin, set to 0 for corners with no crop
+            Glide.with(context).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
         }
     }
 }
