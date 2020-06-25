@@ -22,14 +22,21 @@ import java.util.Locale;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     public static final String TAG = "MovieAdapter";
 
     Context context;
     List<Movie> movies;
+    OnClickListener clickListener;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies, OnClickListener clickListener) {
         this.context = context;
         this.movies = movies;
+        this.clickListener = clickListener;
     }
 
     // Usually involves inflating a layout from XML returning the holder
@@ -67,14 +74,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
-            tvPopularity = itemView.findViewById(R.id.tvVotes);
+            tvPopularity = itemView.findViewById(R.id.tv_popularity);
+
             ivPoster = itemView.findViewById(R.id.ivPoster);
             ivPoster.setScaleType(ImageView.ScaleType.FIT_XY);
             ivPoster.setAdjustViewBounds(true);
+
         }
 
+        // Container to provide easy access to views that represent each row of the list
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
@@ -90,9 +101,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 imageUrl = movie.getPosterPath();
             }
 
+
             int radius = 20; // corner radius, higher value = more rounded
             int margin = 10; // crop margin, set to 0 for corners with no crop
             Glide.with(context).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onItemClicked(getAdapterPosition());
+                }
+            });
         }
     }
+
 }

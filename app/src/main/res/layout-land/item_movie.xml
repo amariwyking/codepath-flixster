@@ -68,7 +68,7 @@
         tools:text="After he and his wife are murdered, marine Ray Garrison is resurrected by a team of scientists. Enhanced with nanotechnology, he becomes a superhuman, biotech killing machine—'Bloodshot'." />
 
     <TextView
-        android:id="@+id/tvVotes"
+        android:id="@+id/tv_popularity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"

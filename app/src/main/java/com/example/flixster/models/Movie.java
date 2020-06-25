@@ -13,6 +13,7 @@ public class Movie {
     private String title;
     private String overview;
     private double popularity;
+    private double voteAverage;
 
 
     public Movie(JSONObject jsonObject) throws JSONException {
@@ -21,6 +22,7 @@ public class Movie {
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         popularity = jsonObject.getDouble("popularity");
+        voteAverage = jsonObject.getDouble("vote_average");
     }
 
     public static List<Movie> fromJSONArray (JSONArray movieJsonArray) throws JSONException {
@@ -49,5 +51,9 @@ public class Movie {
 
     public double getPopularity() {
         return popularity;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
     }
 }
