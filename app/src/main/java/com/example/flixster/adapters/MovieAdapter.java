@@ -2,7 +2,6 @@ package com.example.flixster.adapters;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
 
 import java.util.List;
+import java.util.Locale;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -63,6 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
         TextView tvOverview;
+        TextView tvPopularity;
         ImageView ivPoster;
 
 
@@ -70,6 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
+            tvPopularity = itemView.findViewById(R.id.tvVotes);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             ivPoster.setScaleType(ImageView.ScaleType.FIT_XY);
             ivPoster.setAdjustViewBounds(true);
@@ -78,6 +78,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
+            tvPopularity.setText(String.format(Locale.US, "%d%%", (int) movie.getPopularity()));
             String imageUrl;
 
             // if phone is in landscape
