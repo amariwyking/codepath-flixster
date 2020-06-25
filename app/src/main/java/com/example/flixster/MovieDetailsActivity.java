@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.flixster.databinding.ActivityMovieDetailsBinding;
+import com.example.flixster.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.Locale;
 
@@ -21,7 +25,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvOverview;
     TextView tvPopularity;
 
+    ImageView ivPoster;
+
     RatingBar ratingBar;
+
+    Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +40,34 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvTitle = binding.tvTitle;
         tvOverview = binding.tvOverview;
         tvPopularity = binding.tvPopularity;
+        ivPoster = binding.ivPoster;
         ratingBar = binding.ratingBar;
 
-        Intent i = getIntent();
 
-        tvTitle.setText(i.getStringExtra("title"));
-        tvOverview.setText(i.getStringExtra("overview"));
-        tvPopularity.setText(String.format(Locale.US, "%d%%", (int) i.getDoubleExtra("popularity", 0.0)));
-        String imageUrl = "https://image.tmdb.org/t/p/w342/%s/oCFbh4Mrd0fuGanCgIF6sG27WGD.jpg";
+        // unwrap the movie passed in via intent, using its simple name as a key
+        movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
+        Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
-        float rating = (float) i.getDoubleExtra("voteAverage", 0.0);
-        ratingBar.setRating(rating / 2);
+        tvTitle.setText(movie.getTitle());
+        tvOverview.setText(movie.getOverview());
+        tvPopularity.setText(String.format(Locale.US, "%d%%", (int) movie.getPopularity()));
+        String imageUrl;
+
+        // if phone is in landscape
+        if (binding.getRoot().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // then imageUrl = backdrop image
+            imageUrl = movie.getBackdropPath();
+        } else {
+            // else imageUrl = poster image
+            imageUrl = movie.getPosterPath();
+        }
+
+//        float rating = (float) movie.getVoteAverage();
+        ratingBar.setRating((float) movie.getVoteAverage() / 2);
 //        ratingBar.setRating((float) i.getDoubleExtra("voteAverage", 0.0));
 
+        int radius = 20; // corner radius, higher value = more rounded
+        int margin = 10; // crop margin, set to 0 for corners with no crop
+        Glide.with(binding.getRoot()).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
     }
 }

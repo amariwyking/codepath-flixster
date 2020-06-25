@@ -45,32 +45,32 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rvMovies = binding.rvMovies;
         movies = new ArrayList<>();
 
-        MovieAdapter.OnClickListener onClickListener = new MovieAdapter.OnClickListener() {
-            @Override
-            public void onItemClicked(int position) {
-                Log.d("MainActivity", "Single click at position " + position);
-
-                // Create the new Activity
-
-                Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
-
-                // Pass the data being edited
-
-                i.putExtra("title", movies.get(position).getTitle());
-                i.putExtra("overview", movies.get(position).getOverview());
-                i.putExtra("popularity", movies.get(position).getPopularity());
-                i.putExtra("ivPoster", movies.get(position).getPosterPath());
-                i.putExtra("ivBackdrop", movies.get(position).getBackdropPath());
-                i.putExtra("voteAverage", movies.get(position).getVoteAverage());
-
-
-                // Display the activity
-                startActivity(i);
-            }
-        };
+//        MovieAdapter.OnClickListener onClickListener = new MovieAdapter.OnClickListener() {
+//            @Override
+//            public void onItemClicked(int position) {
+//                Log.d("MainActivity", "Single click at position " + position);
+//
+//                // Create the new Activity
+//
+//                Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
+//
+//                // Pass the data being edited
+//
+//                i.putExtra("title", movies.get(position).getTitle());
+//                i.putExtra("overview", movies.get(position).getOverview());
+//                i.putExtra("popularity", movies.get(position).getPopularity());
+//                i.putExtra("ivPoster", movies.get(position).getPosterPath());
+//                i.putExtra("ivBackdrop", movies.get(position).getBackdropPath());
+//                i.putExtra("voteAverage", movies.get(position).getVoteAverage());
+//
+//
+//                // Display the activity
+//                startActivity(i);
+//            }
+//        };
 
         // Create the adapter
-        final MovieAdapter movieAdapter = new MovieAdapter(this, movies, onClickListener);
+        final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
         // Set the adapter on the recycler view
         rvMovies.setAdapter(movieAdapter);
