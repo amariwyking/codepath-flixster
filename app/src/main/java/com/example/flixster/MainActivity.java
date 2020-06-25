@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         // layout of activity is stored in a special property called root
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
 
 
         RecyclerView rvMovies = binding.rvMovies;
