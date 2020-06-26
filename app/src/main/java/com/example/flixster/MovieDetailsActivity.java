@@ -1,8 +1,10 @@
 package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,52 +26,62 @@ import org.parceler.Parcels;
 
 import java.util.Locale;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     public static final String TAG = "MovieDetailsActivity";
 
+    ActivityMovieDetailsBinding binding;
+
     TextView tvTitle;
     TextView tvOverview;
     TextView tvPopularity;
 
     ImageView ivPoster;
+    ImageView ivBackground;
     RelativeLayout rlBanner;
 
     RatingBar ratingBar;
 
     Movie movie;
 
+    String backdropPath;
+    String posterPath;
     String videoId = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMovieDetailsBinding binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         tvTitle = binding.tvTitle;
         tvOverview = binding.tvOverview;
         tvPopularity = binding.tvPopularity;
         ivPoster = binding.ivPoster;
+        ivBackground = binding.ivBackground;
         rlBanner = binding.rlBanner;
         ratingBar = binding.ratingBar;
-
 
         // unwrap the movie passed in via intent, using its simple name as a key
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
         Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
+        backdropPath = movie.getBackdropPath();
+        posterPath = movie.getPosterPath();
+
+        loadImages();
+
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
         tvPopularity.setText(String.format(Locale.US, "%d%%", (int) movie.getPopularity()));
 
-        String backdropPath = movie.getBackdropPath();
 
         ratingBar.setRating((float) movie.getVoteAverage() / 2);
 
-        loadImage(binding, backdropPath);
         getTrailer();
 
         rlBanner.setOnClickListener(new View.OnClickListener() {
@@ -84,10 +96,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void loadImage(com.example.flixster.databinding.ActivityMovieDetailsBinding binding, String imageUrl) {
+    private void loadImages() {
         int radius = 20; // corner radius, higher value = more rounded
         int margin = 10; // crop margin, set to 0 for corners with no crop
-        Glide.with(binding.getRoot()).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+        ivBackground.setColorFilter(Color.argb(190, 0, 0, 0));
+        Glide.with(binding.getRoot()).load(posterPath).transform(new BlurTransformation(100)).into(ivBackground);
+        Glide.with(binding.getRoot()).load(backdropPath).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
     }
 
     private void getTrailer() {

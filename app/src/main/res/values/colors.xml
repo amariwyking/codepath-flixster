@@ -9,6 +9,7 @@
 
     <color name="colorSurface">#212121</color>
     <color name="colorSurfaceLight">#484848</color>
+    <color name="colorSurfaceTint">#474747</color>
     <color name="colorSurfaceDark">#000</color>
     <color name="colorSurfaceText">#FFF</color>
 </resources>

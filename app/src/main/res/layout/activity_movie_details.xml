@@ -1,100 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/rlRoot"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSurfaceDark"
-    android:padding="20dp">
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rl_banner">
-        <ImageView
-            android:id="@+id/ivPoster"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:srcCompat="@drawable/ic_baseline_play_circle_outline_24" />
-    </RelativeLayout>
-
-
-    <!--Make movie title bold-->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_banner"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorSurfaceText"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:text="Bloodshot" />
+    android:theme="@style/AppTheme">
 
     <ImageView
-        android:id="@+id/ivHeart"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_below="@+id/tvTitle"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rotten_tomatoes_1024"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <!--Append ellipses if text exceeds max lines-->
-
-    <TextView
-        android:id="@+id/tvOverview"
+        android:id="@+id/ivBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorSurfaceText"
-        android:textSize="16sp"
-        tools:text="After he and his wife are murdered, marine Ray Garrison is resurrected by a team of scientists. Enhanced with nanotechnology, he becomes a superhuman, biotech killing machine—'Bloodshot'." />
+        android:layout_marginTop="0dp"
+        android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tv_popularity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/ivHeart"
-        android:textColor="@color/colorSurfaceText"
-        android:textSize="18sp"
-        tools:text="88%" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivHeart"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:isIndicator="false"
-        android:numStars="5"
-        android:stepSize="0.1" />
+        <RelativeLayout
+            android:id="@+id/rl_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivPoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_baseline_play_circle_outline_24" />
+        </RelativeLayout>
 
 
+        <!--Make movie title bold-->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_banner"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorSurfaceText"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Bloodshot" />
+
+        <ImageView
+            android:id="@+id/ivHeart"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rotten_tomatoes_1024"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <!--Append ellipses if text exceeds max lines-->
+
+        <TextView
+            android:id="@+id/tvOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorSurfaceText"
+            android:textSize="16sp"
+            tools:text="After he and his wife are murdered, marine Ray Garrison is resurrected by a team of scientists. Enhanced with nanotechnology, he becomes a superhuman, biotech killing machine—'Bloodshot'." />
+
+        <TextView
+            android:id="@+id/tv_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/ivHeart"
+            android:textColor="@color/colorSurfaceText"
+            android:textSize="18sp"
+            tools:text="88%" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivHeart"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:stepSize="0.1" />
+
+    </RelativeLayout>
 </RelativeLayout>
