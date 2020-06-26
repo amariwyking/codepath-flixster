@@ -64,37 +64,47 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
         tvPopularity.setText(String.format(Locale.US, "%d%%", (int) movie.getPopularity()));
-        String imageUrl = movie.getBackdropPath();
 
-//        float rating = (float) movie.getVoteAverage();
+        String backdropPath = movie.getBackdropPath();
+
         ratingBar.setRating((float) movie.getVoteAverage() / 2);
-//        ratingBar.setRating((float) i.getDoubleExtra("voteAverage", 0.0));
 
-        int radius = 20; // corner radius, higher value = more rounded
-        int margin = 10; // crop margin, set to 0 for corners with no crop
-        Glide.with(binding.getRoot()).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+        loadImage(binding, backdropPath);
+        getTrailer();
 
         rlBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
-                i.putExtra("videoId", videoId);
-                startActivity(i);
+                if (!videoId.isEmpty()){
+                    Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
+                    i.putExtra("videoId", videoId);
+                    startActivity(i);
+                }
             }
         });
+    }
 
-        AsyncHttpClient client = new AsyncHttpClient();
+    private void loadImage(com.example.flixster.databinding.ActivityMovieDetailsBinding binding, String imageUrl) {
+        int radius = 20; // corner radius, higher value = more rounded
+        int margin = 10; // crop margin, set to 0 for corners with no crop
+        Glide.with(binding.getRoot()).load(imageUrl).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+    }
+
+    private void getTrailer() {
+//        AsyncHttpClient client = new AsyncHttpClient();
         String videoURL = String.format(Locale.US, "https://api.themoviedb.org/3/movie/%d/videos?api_key=%s", movie.getId(), getString(R.string.api_key_movie_db));
 
-        client.get(videoURL, new JsonHttpResponseHandler() {
+        new AsyncHttpClient().get(videoURL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 try {
+                    // Pull the details of this movie from database
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.d(TAG, "Results: " + results.toString());
 
+                    // Pull the video id from the movie details
                     videoId = results.getJSONObject(0).getString("key");
                     Log.d(TAG, "videoId: " + videoId);
                 } catch (JSONException e) {
@@ -107,5 +117,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 Log.d(TAG, "Status: " + statusCode);
             }
         });
+
     }
 }
