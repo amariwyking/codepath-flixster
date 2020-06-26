@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -39,8 +41,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvOverview;
     TextView tvPopularity;
 
+    ImageButton ibClose;
+
     ImageView ivPoster;
     ImageView ivBackground;
+
     RelativeLayout rlBanner;
 
     RatingBar ratingBar;
@@ -61,6 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvTitle = binding.tvTitle;
         tvOverview = binding.tvOverview;
         tvPopularity = binding.tvPopularity;
+        ibClose = binding.ibClose;
         ivPoster = binding.ivPoster;
         ivBackground = binding.ivBackground;
         rlBanner = binding.rlBanner;
@@ -94,14 +100,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ibClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void loadImages() {
         int radius = 20; // corner radius, higher value = more rounded
         int margin = 10; // crop margin, set to 0 for corners with no crop
         ivBackground.setColorFilter(Color.argb(190, 0, 0, 0));
-        Glide.with(binding.getRoot()).load(posterPath).transform(new BlurTransformation(100)).into(ivBackground);
-        Glide.with(binding.getRoot()).load(backdropPath).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+
+        // if phone is in landscape
+        if (binding.getRoot().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // then display landscape
+            Glide.with(binding.getRoot()).load(backdropPath).transform(new BlurTransformation(100)).into(ivBackground);
+            Glide.with(binding.getRoot()).load(posterPath).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+        } else {
+            Glide.with(binding.getRoot()).load(posterPath).transform(new BlurTransformation(100)).into(ivBackground);
+            Glide.with(binding.getRoot()).load(backdropPath).fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+        }
+
     }
 
     private void getTrailer() {

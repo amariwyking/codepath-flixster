@@ -137,7 +137,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/play_circle_outline/baseline_play_circle_outline_24.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/play_circle_filled/baseline_play_circle_filled_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -147,8 +147,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="c2c2c2" />
-                            <entry key="outputName" value="ic_baseline_play_circle_outline_24" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="opacityPercent" value="75" />
+                            <entry key="outputName" value="ic_baseline_play_circle_filled_48" />
                           </map>
                         </option>
                       </PersistentState>
