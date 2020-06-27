@@ -39,6 +39,10 @@ Here's a walkthrough of implemented user stories:
 
 GIFs created with [Kap](http://www.getkap.co/).
 
+## Open-source libraries used
+* **Android Async HTTP** - Simple asynchronous HTTP requests with JSON parsing
+* **Glide** - Image loading and caching library for Android
+
 ## License
 
     Copyright 2020 Amari Garrett
