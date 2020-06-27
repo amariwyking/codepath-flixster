@@ -29,13 +29,7 @@ The following **additional** features have been implemented:
 
 Here's a walkthrough of implemented user stories:
 
-**PORTRAIT**
-
-<img src='https://github.com/Amari-G/codepath/blob/master/Kap/flixster_portrait.gif' />
-
-**LANDSCAPE**
-
-<img src='https://github.com/Amari-G/codepath/blob/master/Kap/flixster_landscape.gif' />
+<img src='https://github.com/Amari-G/codepath/blob/master/Kap/flixster.gif' />
 
 GIFs created with [Kap](http://www.getkap.co/).
 
