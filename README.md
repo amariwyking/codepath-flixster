@@ -1,6 +1,6 @@
 # Project 1 - *Flixster*
 
-**Simple Todo** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
+**Flixter** is an Android app that allows users to browse, preview, and flag upcoming films.
 
 Submitted by: **Amari Garrett**
 
@@ -8,21 +8,18 @@ Time spent: **15-20** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is completed:
+The following core functionalities are included:
 
 * [X] User can **view a list of movies (title, poster image, and overview) currently playing in theaters from the Movie Database API**
 * [X] Display a nice default placeholder graphic (see links above) for each image during loading (read more about Glide)
 * [X] Views should be responsive for both landscape/portrait mode
 
-The following **stretch** features are implemented:
+The following additional features are implemented:
 
-* [X] Add rounded corners for the images using the Glide transformations (**1 point**)
+* [X] Add rounded corners for the images using with Glide transformations (**1 point**)
 * [X] Improve the user interface through styling and coloring (1 to 5 points depending on the difficulty of UI improvements**)
 * [X] Apply the View Binding library to reduce view boilerplate (**2 points**)
 * [X] Allow video posts to be played in full-screen using the YouTubePlayerView (**3 points**)
-
-The following **additional** features have been implemented:
-
 * [X] Prevent MovieTrailerActivity from reloading when screen is rotated
 
 ## Video Walkthrough
